@@ -3,6 +3,7 @@ import About from "./pages/About";
 import Skils from "./features/Skils";
 import Services from "./pages/Services";
 import Xp from "./pages/Xp";
+import Projects from "./pages/Projects";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <div
               className={`flex flex-row items-center justify-center w-screen h-screen transform transition-transform duration-300`}
             >
+              <Projects />
               <div className={`flex flex-col items-center justify-center`}>
                 <About />
                 <Services />
