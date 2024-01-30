@@ -1,6 +1,7 @@
 import Card from "../../components/Card";
 import "../../App.css";
 import { FaFigma } from "react-icons/fa";
+import { TbDeviceMobileMessage } from "react-icons/tb";
 import { RiCodeView } from "react-icons/ri";
 import { useState } from "react";
 
@@ -16,14 +17,16 @@ const SERVICES = [
     icon: (
       <RiCodeView style={{ width: "40px", height: "40px", color: "#899bff" }} />
     ),
-    title: "Desenvolvimento",
-    text: "Desenvolvo sites profissionais, portfólios, landing pages e aplicativos",
+    title: "Web",
+    text: "Desenvolvo sites profissionais, portfólios e landing pages",
   },
   {
     icon: (
-      <FaFigma style={{ width: "40px", height: "40px", color: "#899bff" }} />
+      <TbDeviceMobileMessage
+        style={{ width: "40px", height: "40px", color: "#899bff" }}
+      />
     ),
-    title: "UI Design",
+    title: "Mobile",
     text: "Desenho interface de forma que ela seja clara, objetiva e principalmente intuitiva para o usuário.",
   },
 ];
