@@ -8,7 +8,7 @@ import Skils from "./features/Skils";
 import Services from "./pages/Services";
 import Xp from "./pages/Xp";
 import Projects from "./pages/Projects";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const NAV = [
   {
@@ -35,6 +35,15 @@ const NAV = [
 
 function App() {
   const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null);
+  const [isGrabbing, setIsGrabbing] = useState(false);
+
+  const handleMouseDown = () => {
+    setIsGrabbing(true);
+  };
+
+  const handleMouseUp = () => {
+    setIsGrabbing(false);
+  };
 
   function zoomToImage(value: string, zoom: number) {
     if (transformComponentRef.current) {
@@ -47,13 +56,16 @@ function App() {
     zoomToImage("about", 1.5);
   }, []);
   return (
-    <div className="cursor-grab flex items-center justify-center min-h-screen">
-      <ul className="flex items-center justify-center space-x-8 absolute top-0 p-8 w-full  text-md text-gray-600 z-[500] bg-[#111111]">
+    <div
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      className={`${
+        isGrabbing ? "cursor-grabbing" : "cursor-grab"
+      } flex items-center justify-center min-h-screen`}
+    >
+      <ul className="cursor-pointer flex items-center justify-center space-x-8 absolute top-0 p-8 w-full  text-md text-gray-600 z-[500] bg-[#111111]">
         {NAV.map((value) => (
-          <li
-            style={{ cursor: "pointer" }}
-            onClick={() => zoomToImage(value.id, value.zoom)}
-          >
+          <li onClick={() => zoomToImage(value.id, value.zoom)}>
             {value.title}
           </li>
         ))}
