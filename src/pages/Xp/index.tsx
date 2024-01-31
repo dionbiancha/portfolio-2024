@@ -42,7 +42,7 @@ function Xp() {
   }
   return (
     <div style={{ marginLeft: "50px" }}>
-      <Card title="`${experiências}`">
+      <Card title="`${experiências}`" id="xp">
         <div className="flex flex-row justify-between">
           <div className="flex flex-col justify-between bg-[#111111] mr-5">
             {XP_VALUES.map((value) => (

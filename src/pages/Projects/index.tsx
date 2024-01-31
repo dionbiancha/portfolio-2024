@@ -95,7 +95,7 @@ function Area({ icon, title, text }: AreaProps) {
 function Projects() {
   return (
     <div style={{ marginRight: "50px" }}>
-      <Card title="`${projetos}`">
+      <Card title="`${projetos}`" id="projects">
         <div className="flex flex-row flex-wrap justify-between">
           {PROJECTS.map((value) => (
             <Area icon={value.icon} title={value.title} text={value.text} />

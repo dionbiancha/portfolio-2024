@@ -27,7 +27,7 @@ const SOCIAL = [
 
 function About() {
   return (
-    <Card title="`${sobre}`">
+    <Card title="`${sobre}`" id="about">
       <div className="flex flex-row justify-between">
         <img
           style={{

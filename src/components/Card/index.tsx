@@ -1,11 +1,12 @@
 interface CardProps {
   children: React.ReactNode;
   title?: string;
+  id?: string;
 }
 
-function Card({ children, title }: CardProps) {
+function Card({ children, title, id }: CardProps) {
   return (
-    <div style={{ width: "600px" }}>
+    <div id={id} style={{ width: "600px" }}>
       <h1
         style={{
           color: "#899bff",
