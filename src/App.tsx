@@ -47,7 +47,7 @@ function App() {
     zoomToImage("about", 1.5);
   }, []);
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="cursor-grab flex items-center justify-center min-h-screen">
       <ul className="flex items-center justify-center space-x-8 absolute top-0 p-8 w-full  text-md text-gray-600 z-[500] bg-[#111111]">
         {NAV.map((value) => (
           <li
