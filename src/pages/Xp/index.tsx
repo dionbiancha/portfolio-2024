@@ -33,7 +33,11 @@ interface XProps {
   text: string;
 }
 
-function Xp() {
+interface Props {
+  onFocus: string;
+}
+
+function Xp({ onFocus }: Props) {
   const [selectdXP, setSelectdXP] = useState<XProps>(XP_VALUES[0]);
 
   function isSelected(value: XProps) {
@@ -41,7 +45,7 @@ function Xp() {
     return false;
   }
   return (
-    <div style={{ marginLeft: "50px" }}>
+    <div style={{ marginLeft: "50px", opacity: onFocus === "xp" ? 1 : 0.1 }}>
       <Card title="`${experiências}`" id="xp">
         <div className="flex flex-row justify-between">
           <div className="flex flex-col justify-between bg-[#111111] mr-5">

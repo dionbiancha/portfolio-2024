@@ -80,10 +80,14 @@ function Area({ icon, title, text }: AreaProps) {
     </div>
   );
 }
-
-function Services() {
+interface Props {
+  onFocus: string;
+}
+function Services({ onFocus }: Props) {
   return (
-    <div style={{ marginTop: "50px" }}>
+    <div
+      style={{ marginTop: "50px", opacity: onFocus === "services" ? 1 : 0.1 }}
+    >
       <Card title="`${serviços}`" id="services">
         <div className="flex flex-row justify-between">
           {SERVICES.map((value) => (

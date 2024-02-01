@@ -25,64 +25,70 @@ const SOCIAL = [
   },
 ];
 
-function About() {
+interface Props {
+  onFocus: string;
+}
+
+function About({ onFocus }: Props) {
   return (
-    <Card title="`${sobre}`" id="about">
-      <div className="flex flex-row justify-between">
-        <img
-          style={{
-            height: "200px",
-            width: "200px",
-            borderRadius: "5px",
-            marginRight: "20px",
-            filter: "grayscale(100%)",
-          }}
-          src="me.jpg"
-        />
-        <div>
-          <h2
+    <div style={{ opacity: onFocus === "about" ? 1 : 0.1 }}>
+      <Card title="`${sobre}`" id="about">
+        <div className="flex flex-row justify-between">
+          <img
             style={{
-              fontWeight: 600,
-              fontSize: "15px",
-              marginTop: "5px",
-              marginBottom: "5px",
+              height: "200px",
+              width: "200px",
+              borderRadius: "5px",
+              marginRight: "20px",
+              filter: "grayscale(100%)",
             }}
-          >
-            Dionei Bianchati
-          </h2>
-          <h3
-            style={{
-              fontWeight: 600,
-              fontSize: "10px",
-              marginBottom: "15px",
-            }}
-          >
-            Frontend Developer & UI Designer
-          </h3>
-          <p
-            style={{
-              color: "#9ca3af",
-              fontSize: "10px",
-            }}
-          >
-            Com mais de 3 anos de experiência em desenvolvimento web (ReactJS |
-            NextJS) atuei em aplicações internacionais que impactaram uma
-            carteira exponencial com mais de 6 milhões de clientes.
-          </p>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              marginTop: "20px",
-            }}
-          >
-            {SOCIAL.map((value) => (
-              <SocialButton icon={value.icon} link={value.link} />
-            ))}
+            src="me.jpg"
+          />
+          <div>
+            <h2
+              style={{
+                fontWeight: 600,
+                fontSize: "15px",
+                marginTop: "5px",
+                marginBottom: "5px",
+              }}
+            >
+              Dionei Bianchati
+            </h2>
+            <h3
+              style={{
+                fontWeight: 600,
+                fontSize: "10px",
+                marginBottom: "15px",
+              }}
+            >
+              Frontend Developer & UI Designer
+            </h3>
+            <p
+              style={{
+                color: "#9ca3af",
+                fontSize: "10px",
+              }}
+            >
+              Com mais de 3 anos de experiência em desenvolvimento web (ReactJS
+              | NextJS) atuei em aplicações internacionais que impactaram uma
+              carteira exponencial com mais de 6 milhões de clientes.
+            </p>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                marginTop: "20px",
+              }}
+            >
+              {SOCIAL.map((value) => (
+                <SocialButton icon={value.icon} link={value.link} />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </Card>
+      </Card>
+    </div>
   );
 }
 

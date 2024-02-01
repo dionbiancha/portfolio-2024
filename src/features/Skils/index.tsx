@@ -11,7 +11,7 @@ import { SiStorybook } from "react-icons/si";
 function Skils() {
   return (
     <div
-      style={{ marginTop: "30px", marginBottom: "30px", opacity: 0.2 }}
+      style={{ marginTop: "30px", marginBottom: "30px", opacity: 0.1 }}
       x-data="{}"
       x-init="$nextTick(() => {
     let ul = $refs.logos;

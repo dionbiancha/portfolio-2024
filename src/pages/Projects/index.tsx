@@ -91,10 +91,15 @@ function Area({ icon, title, text }: AreaProps) {
     </div>
   );
 }
+interface Props {
+  onFocus: string;
+}
 
-function Projects() {
+function Projects({ onFocus }: Props) {
   return (
-    <div style={{ marginRight: "50px" }}>
+    <div
+      style={{ marginRight: "50px", opacity: onFocus === "projects" ? 1 : 0.1 }}
+    >
       <Card title="`${projetos}`" id="projects">
         <div className="flex flex-row flex-wrap justify-between">
           {PROJECTS.map((value) => (

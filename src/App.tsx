@@ -4,7 +4,6 @@ import {
   TransformWrapper,
 } from "react-zoom-pan-pinch";
 import About from "./pages/About";
-import Skils from "./features/Skils";
 import Services from "./pages/Services";
 import Xp from "./pages/Xp";
 import Projects from "./pages/Projects";
@@ -36,6 +35,7 @@ const NAV = [
 function App() {
   const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null);
   const [isGrabbing, setIsGrabbing] = useState(false);
+  const [onFocus, setOnFocus] = useState("");
 
   const handleMouseDown = () => {
     setIsGrabbing(true);
@@ -48,12 +48,13 @@ function App() {
   function zoomToImage(value: string, zoom: number) {
     if (transformComponentRef.current) {
       const { zoomToElement } = transformComponentRef.current;
-
+      setOnFocus(value);
       zoomToElement(value, zoom);
     }
   }
   useEffect(() => {
     zoomToImage("about", 1.5);
+    setOnFocus("about");
   }, []);
   return (
     <div
@@ -72,6 +73,7 @@ function App() {
       </ul>
       <div className="absolute z-10">
         <TransformWrapper
+          disabled
           initialScale={1}
           limitToBounds={false}
           ref={transformComponentRef}
@@ -80,17 +82,17 @@ function App() {
             <div
               className={`flex flex-row items-center justify-center w-screen h-screen transform transition-transform duration-300`}
             >
-              <Projects />
+              <Projects onFocus={onFocus} />
               <div className={`flex flex-col items-center justify-center`}>
-                <About />
-                <Services />
+                <About onFocus={onFocus} />
+                <Services onFocus={onFocus} />
               </div>
-              <Xp />
+              <Xp onFocus={onFocus} />
             </div>
           </TransformComponent>
         </TransformWrapper>
       </div>
-      <Skils />
+      {/* <Skils /> */}
       <div className="absolute bottom-10 text-gray-600 text-sm">
         Made with 💜 by Dionei Bianchati
       </div>
