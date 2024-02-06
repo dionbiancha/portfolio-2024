@@ -45,7 +45,7 @@ function Area({ icon, title, text }: AreaProps) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={`border rounded-md  ${
-        isHovered ? "border-[#899bff]" : "border-[#111111]"
+        isHovered ? "shadow-neon-blue" : "border-[#111111]"
       }`}
       style={{
         display: "flex",
@@ -56,6 +56,7 @@ function Area({ icon, title, text }: AreaProps) {
         backgroundColor: "#111111",
         padding: "20px",
         cursor: "pointer",
+        margin: "8px",
       }}
     >
       <div>
@@ -72,7 +73,6 @@ function Area({ icon, title, text }: AreaProps) {
         </h2>
       </div>
       <p style={{ color: "#9ca3af", fontSize: "10px" }}>{text}</p>
-      <span style={{ color: "#899bff", fontSize: "10px" }}>Saiba mais</span>
     </div>
   );
 }

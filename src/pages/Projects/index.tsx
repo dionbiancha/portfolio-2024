@@ -47,8 +47,8 @@ function Area({ icon, title, text, skills }: AreaProps) {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <div
-      className={`border rounded-md  ${
-        isHovered ? "border-[#899bff]" : "border-[#111111]"
+      className={`border rounded-md duration-300 ${
+        isHovered ? "shadow-neon-blue" : "border-[#111111]"
       }`}
       style={{
         display: "flex",
@@ -59,6 +59,7 @@ function Area({ icon, title, text, skills }: AreaProps) {
         backgroundColor: "#111111",
         padding: "20px",
         cursor: "pointer",
+        margin: "8px",
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -84,10 +85,10 @@ function Area({ icon, title, text, skills }: AreaProps) {
             style={{
               display: "flex",
               padding: "3px 6px 3px 6px",
-              marginRight: "5px",
+              marginRight: "10px",
               borderRadius: "5px",
-              border: "1px solid #899bff",
-              color: "#899bff",
+              border: "1px solid #9ca3af",
+              color: "#9ca3af",
               fontSize: "10px",
               fontWeight: 600,
             }}

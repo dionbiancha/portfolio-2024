@@ -57,6 +57,7 @@ function About({ onFocus }: Props) {
             </h2>
             <h3
               style={{
+                color: "#899bff",
                 fontWeight: 600,
                 fontSize: "10px",
                 marginBottom: "15px",

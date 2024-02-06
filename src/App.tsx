@@ -52,7 +52,7 @@ function App() {
       <ul className="cursor-pointer flex items-center justify-center space-x-8 absolute top-0 p-8 w-full  text-md text-gray-600 z-[500] bg-[#111111]">
         {NAV.map((value) => (
           <li
-            className="hover:text-[#899bff]"
+            className="duration-500 hover:text-[#fff]"
             onClick={() => zoomToImage(value.id, value.zoom)}
           >
             {value.title}
