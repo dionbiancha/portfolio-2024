@@ -3,7 +3,8 @@ import "../../App.css";
 import { FaFigma } from "react-icons/fa";
 import { TbDeviceMobileMessage } from "react-icons/tb";
 import { RiCodeView } from "react-icons/ri";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import AliceCarousel from "react-alice-carousel";
 
 const SERVICES = [
   {
@@ -47,53 +48,87 @@ function Area({ icon, title, text }: AreaProps) {
         isHovered ? "border-[#899bff]" : "border-[#111111]"
       }`}
       style={{
-        width: "170px",
-        height: "170px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        width: "90%",
+        height: "200px",
         backgroundColor: "#111111",
         padding: "20px",
         cursor: "pointer",
       }}
     >
-      {icon}
-      <h2
-        style={{
-          marginBottom: "5px",
-          marginTop: "15px",
-          fontWeight: 600,
-          fontSize: "15px",
-        }}
-      >
-        {title}
-      </h2>
+      <div>
+        {icon}
+        <h2
+          style={{
+            marginBottom: "5px",
+            marginTop: "15px",
+            fontWeight: 600,
+            fontSize: "15px",
+          }}
+        >
+          {title}
+        </h2>
+      </div>
       <p style={{ color: "#9ca3af", fontSize: "10px" }}>{text}</p>
-      <span
-        className={`absolute right-0 top-0 h-0 w-0 border-r-2 border-[#899bff] transition-all duration-500 ${
-          isHovered ? "h-full" : ""
-        }`}
-      ></span>
-
-      <span
-        className={`absolute bottom-0 left-0 h-0 w-0 border-l-2 border-[#899bff] transition-all duration-500 ${
-          isHovered ? "h-full" : ""
-        }`}
-      ></span>
+      <span style={{ color: "#899bff", fontSize: "10px" }}>Saiba mais</span>
     </div>
   );
 }
+
 interface Props {
   onFocus: string;
 }
+
+const responsive = {
+  0: {
+    items: 1,
+  },
+  568: {
+    items: 1,
+  },
+  1024: {
+    items: 2,
+  },
+};
+
 function Services({ onFocus }: Props) {
+  const carouselRef = useRef<AliceCarousel>(null);
+  const nullRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = (event: any) => {
+      const deltaY = event.deltaY;
+      if (deltaY > 0) {
+        carouselRef.current?.slideNext();
+      } else if (deltaY < 0) {
+        carouselRef.current?.slidePrev();
+      }
+    };
+
+    window.addEventListener("wheel", handleScroll);
+
+    return () => {
+      window.removeEventListener("wheel", handleScroll);
+    };
+  }, []);
   return (
     <div
       style={{ marginTop: "50px", opacity: onFocus === "services" ? 1 : 0.1 }}
     >
       <Card title="`${serviços}`" id="services">
-        <div className="flex flex-row justify-between">
-          {SERVICES.map((value) => (
+        <AliceCarousel
+          ref={onFocus === "services" ? carouselRef : nullRef}
+          responsive={responsive}
+          infinite
+          mouseTracking
+          disableDotsControls
+          disableButtonsControls
+          items={SERVICES.map((value) => (
             <Area icon={value.icon} title={value.title} text={value.text} />
           ))}
-        </div>
+        />
       </Card>
     </div>
   );

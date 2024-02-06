@@ -28,22 +28,13 @@ const NAV = [
   {
     title: "Projetos",
     id: "projects",
-    zoom: 1.3,
+    zoom: 1.5,
   },
 ];
 
 function App() {
   const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null);
-  const [isGrabbing, setIsGrabbing] = useState(false);
   const [onFocus, setOnFocus] = useState("");
-
-  const handleMouseDown = () => {
-    setIsGrabbing(true);
-  };
-
-  const handleMouseUp = () => {
-    setIsGrabbing(false);
-  };
 
   function zoomToImage(value: string, zoom: number) {
     if (transformComponentRef.current) {
@@ -57,16 +48,13 @@ function App() {
     setOnFocus("about");
   }, []);
   return (
-    <div
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      className={`${
-        isGrabbing ? "cursor-grabbing" : "cursor-grab"
-      } flex items-center justify-center min-h-screen`}
-    >
+    <div className={`flex items-center justify-center min-h-screen`}>
       <ul className="cursor-pointer flex items-center justify-center space-x-8 absolute top-0 p-8 w-full  text-md text-gray-600 z-[500] bg-[#111111]">
         {NAV.map((value) => (
-          <li onClick={() => zoomToImage(value.id, value.zoom)}>
+          <li
+            className="hover:text-[#899bff]"
+            onClick={() => zoomToImage(value.id, value.zoom)}
+          >
             {value.title}
           </li>
         ))}
