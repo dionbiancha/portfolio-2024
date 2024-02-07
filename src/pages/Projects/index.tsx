@@ -16,7 +16,7 @@ const PROJECTS = [
     ),
     title: "Adaptour",
     text: "Projeto ajuda a solucionar a dor de um grupo de turistas aonde se precisam de acessbilidade.",
-    skills: ["Next", "Typescript", "Chakra UI"],
+    skills: ["Next", "Typescript", "Chakra UI", "Web"],
   },
   {
     icon: (
@@ -24,7 +24,7 @@ const PROJECTS = [
     ),
     title: "I Love Voucher",
     text: "Facilitando a vida de operadores de turismos padronizando a emissão de vouchers.",
-    skills: ["Next", "Typescript", "Chakra UI"],
+    skills: ["React", "Typescript", "Chakra UI", "i18n", "Web"],
   },
   {
     icon: (
@@ -32,7 +32,7 @@ const PROJECTS = [
     ),
     title: "Portfolio 2023",
     text: "Website turilizado como portfólio no ano de 2023",
-    skills: ["Next", "Typescript", "Chakra UI"],
+    skills: ["React", "Typescript", "i18n", "Web"],
   },
 ];
 
@@ -41,10 +41,13 @@ interface AreaProps {
   title: string;
   text: string;
   skills: string[];
+  filter: string[];
+  setFilter: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-function Area({ icon, title, text, skills }: AreaProps) {
+function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
   const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div
       className={`border rounded-md duration-300 ${
@@ -55,6 +58,7 @@ function Area({ icon, title, text, skills }: AreaProps) {
         flexDirection: "column",
         justifyContent: "space-between",
         width: "90%",
+        maxWidth: "400px",
         height: "200px",
         backgroundColor: "#111111",
         padding: "20px",
@@ -82,16 +86,27 @@ function Area({ icon, title, text, skills }: AreaProps) {
       <div style={{ display: "flex", flexDirection: "row" }}>
         {skills.map((value) => (
           <div
+            onClick={() => {
+              if (filter.includes(value)) {
+                setFilter(filter.filter((item) => item !== value));
+              } else {
+                setFilter([...filter, value]);
+              }
+            }}
+            className={`border border-[#9ca3af] duration-500 text-[#9ca3af] ${
+              filter.includes(value)
+                ? "bg-[#899bff] text-[#111111] border-[#899bff]"
+                : ""
+            }`}
             style={{
               display: "flex",
               padding: "3px 6px 3px 6px",
               marginRight: "10px",
               borderRadius: "5px",
-              border: "1px solid #9ca3af",
-              color: "#9ca3af",
               fontSize: "10px",
               fontWeight: 600,
             }}
+            key={value} // Adicionei uma chave única para cada elemento, necessário quando renderizando uma lista no React
           >
             {value}
           </div>
@@ -117,6 +132,7 @@ const responsive = {
 };
 
 function Projects({ onFocus }: Props) {
+  const [filter, setFilter] = useState<string[]>([]);
   const carouselRef = useRef<AliceCarousel>(null);
   const nullRef = useRef(null);
 
@@ -149,12 +165,21 @@ function Projects({ onFocus }: Props) {
           mouseTracking
           disableDotsControls
           disableButtonsControls
-          items={PROJECTS.map((value) => (
+          items={PROJECTS.filter((project) => {
+            if (filter.length === 0) {
+              return true;
+            }
+
+            return filter.every((skill) => project.skills.includes(skill));
+          }).map((project) => (
             <Area
-              icon={value.icon}
-              title={value.title}
-              text={value.text}
-              skills={value.skills}
+              key={project.title}
+              filter={filter}
+              setFilter={setFilter}
+              icon={project.icon}
+              title={project.title}
+              text={project.text}
+              skills={project.skills}
             />
           ))}
         />

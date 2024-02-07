@@ -5,6 +5,8 @@ import { TbDeviceMobileMessage } from "react-icons/tb";
 import { RiCodeView } from "react-icons/ri";
 import { useEffect, useRef, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
+import { FaArrowRight } from "react-icons/fa6";
+import { ReactZoomPanPinchRef } from "react-zoom-pan-pinch";
 
 const SERVICES = [
   {
@@ -40,6 +42,7 @@ interface AreaProps {
 
 function Area({ icon, title, text }: AreaProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null);
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
@@ -73,6 +76,23 @@ function Area({ icon, title, text }: AreaProps) {
         </h2>
       </div>
       <p style={{ color: "#9ca3af", fontSize: "10px" }}>{text}</p>
+      <div
+        onClick={() => {
+          // const { zoomToElement } = transformComponentRef.current;
+        }}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          color: "#899bff",
+          alignItems: "center",
+          fontWeight: 600,
+          fontSize: "10px",
+        }}
+      >
+        <p>Projetos</p>
+        <FaArrowRight />
+      </div>
     </div>
   );
 }
