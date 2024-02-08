@@ -1,7 +1,7 @@
 import Card from "../../components/Card";
 import "../../App.css";
 import { MdDevices } from "react-icons/md";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { MdOutlineTour } from "react-icons/md";
 import { LuTicket } from "react-icons/lu";
 import AliceCarousel from "react-alice-carousel";
@@ -48,6 +48,7 @@ interface AreaProps {
 
 function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const { onFocus } = usePreview();
 
   return (
     <div
@@ -63,11 +64,11 @@ function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
         height: "200px",
         backgroundColor: "#111111",
         padding: "20px",
-        cursor: "pointer",
+        cursor: onFocus === "projects" ? "pointer" : "",
         margin: "8px",
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => onFocus === "projects" && setIsHovered(true)}
+      onMouseLeave={() => onFocus === "projects" && setIsHovered(false)}
     >
       <div>
         {icon}
@@ -116,9 +117,6 @@ function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
     </div>
   );
 }
-interface Props {
-  onFocus: string;
-}
 
 const responsive = {
   0: {
@@ -132,27 +130,10 @@ const responsive = {
   },
 };
 
-function Projects({ onFocus }: Props) {
+function Projects() {
   const carouselRef = useRef<AliceCarousel>(null);
   const nullRef = useRef(null);
-  const { filter, setFilter } = usePreview();
-
-  useEffect(() => {
-    const handleScroll = (event: WheelEvent) => {
-      const deltaY = event.deltaY;
-      if (deltaY > 0) {
-        carouselRef.current?.slideNext();
-      } else if (deltaY < 0) {
-        carouselRef.current?.slidePrev();
-      }
-    };
-
-    window.addEventListener("wheel", handleScroll);
-
-    return () => {
-      window.removeEventListener("wheel", handleScroll);
-    };
-  }, []);
+  const { filter, setFilter, onFocus } = usePreview();
 
   return (
     <div

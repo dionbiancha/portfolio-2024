@@ -1,6 +1,7 @@
 import Card from "../../components/Card";
 import "../../App.css";
 import { useState } from "react";
+import { usePreview } from "../../context/DataContext";
 
 const XP_VALUES = [
   {
@@ -33,12 +34,9 @@ interface XProps {
   text: string;
 }
 
-interface Props {
-  onFocus: string;
-}
-
-function Xp({ onFocus }: Props) {
+function Xp() {
   const [selectdXP, setSelectdXP] = useState<XProps>(XP_VALUES[0]);
+  const { onFocus } = usePreview();
 
   function isSelected(value: XProps) {
     if (selectdXP === value) return true;
@@ -51,10 +49,10 @@ function Xp({ onFocus }: Props) {
           <div className="flex flex-col justify-between bg-[#111111] mr-5">
             {XP_VALUES.map((value) => (
               <div
-                onClick={() => setSelectdXP(value)}
+                onClick={() => onFocus === "xp" && setSelectdXP(value)}
                 style={{
                   borderLeft: isSelected(value) ? "2px solid #899bff" : "",
-                  cursor: "pointer",
+                  cursor: onFocus === "xp" ? "pointer" : "",
                   fontSize: "15px",
                   padding: "20px",
                   whiteSpace: "nowrap",

@@ -15,45 +15,89 @@ const NAV = [
     title: "Sobre",
     id: "about",
     zoom: 1.5,
+    cod: 0,
   },
   {
     title: "Serviços",
     id: "services",
     zoom: 1.5,
+    cod: 1,
   },
   {
     title: "Experiências",
     id: "xp",
     zoom: 1.5,
+    cod: 2,
   },
   {
     title: "Projetos",
     id: "projects",
     zoom: 1.5,
+    cod: 3,
   },
 ];
 
 function App() {
   const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null);
-  const [onFocus, setOnFocus] = useState("");
-  const { filter, setFilter } = usePreview();
+  const { filter, setFilter, setOnFocus } = usePreview();
+  const [screenMove, setScreenMove] = useState(0);
 
   function zoomToImage(value: string, zoom: number) {
     if (transformComponentRef.current) {
       const { zoomToElement } = transformComponentRef.current;
-      setOnFocus(value);
       zoomToElement(value, zoom);
+      setOnFocus(value);
     }
   }
   useEffect(() => {
     if (filter.length > 0) {
       zoomToImage("projects", 1.5);
+      setOnFocus("projects");
     }
   }, [filter]);
 
   useEffect(() => {
-    zoomToImage("about", 1.5);
-    setOnFocus("about");
+    if (screenMove > 3) {
+      setScreenMove(0);
+    }
+
+    if (screenMove < 0) {
+      setScreenMove(3);
+    }
+
+    if (screenMove === 0) {
+      zoomToImage("about", 1.5);
+      setOnFocus("about");
+    }
+    if (screenMove === 1) {
+      zoomToImage("xp", 1.5);
+      setOnFocus("xp");
+    }
+    if (screenMove === 2) {
+      zoomToImage("services", 1.5);
+      setOnFocus("services");
+    }
+    if (screenMove === 3) {
+      zoomToImage("projects", 1.5);
+      setOnFocus("projects");
+    }
+  }, [screenMove]);
+
+  function handleScroll(event: WheelEvent) {
+    if (event.deltaY > 0) {
+      setScreenMove((prevCount) => prevCount + 1);
+    }
+    if (event.deltaY < 0) {
+      setScreenMove((prevCount) => prevCount - 1);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("wheel", handleScroll);
+
+    return () => {
+      window.removeEventListener("wheel", handleScroll);
+    };
   }, []);
 
   return (
@@ -63,6 +107,7 @@ function App() {
           <li
             className="duration-500 hover:text-[#fff]"
             onClick={() => {
+              setScreenMove(value.cod);
               zoomToImage(value.id, value.zoom);
               if (value.id !== "projects") {
                 setFilter([]);
@@ -84,12 +129,12 @@ function App() {
             <div
               className={`flex flex-row items-center justify-center w-screen h-screen transform transition-transform duration-300`}
             >
-              <Projects onFocus={onFocus} />
+              <Projects />
               <div className={`flex flex-col items-center justify-center`}>
-                <About onFocus={onFocus} />
-                <Services onFocus={onFocus} />
+                <About />
+                <Services />
               </div>
-              <Xp onFocus={onFocus} />
+              <Xp />
             </div>
           </TransformComponent>
         </TransformWrapper>

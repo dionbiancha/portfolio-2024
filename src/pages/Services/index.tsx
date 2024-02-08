@@ -3,7 +3,7 @@ import "../../App.css";
 import { FaFigma } from "react-icons/fa";
 import { TbDeviceMobileMessage } from "react-icons/tb";
 import { RiCodeView } from "react-icons/ri";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
 import { FaArrowRight } from "react-icons/fa6";
 import { usePreview } from "../../context/DataContext";
@@ -46,12 +46,12 @@ interface AreaProps {
 
 function Area({ icon, title, text, filters }: AreaProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const { setFilter } = usePreview();
+  const { setFilter, onFocus } = usePreview();
 
   return (
     <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => onFocus === "services" && setIsHovered(true)}
+      onMouseLeave={() => onFocus === "services" && setIsHovered(false)}
       className={`border rounded-md  ${
         isHovered ? "shadow-neon-blue" : "border-[#111111]"
       }`}
@@ -63,7 +63,7 @@ function Area({ icon, title, text, filters }: AreaProps) {
         height: "200px",
         backgroundColor: "#111111",
         padding: "20px",
-        cursor: "pointer",
+        cursor: onFocus === "services" ? "pointer" : "",
         margin: "8px",
       }}
     >
@@ -100,10 +100,6 @@ function Area({ icon, title, text, filters }: AreaProps) {
   );
 }
 
-interface Props {
-  onFocus: string;
-}
-
 const responsive = {
   0: {
     items: 1,
@@ -116,26 +112,11 @@ const responsive = {
   },
 };
 
-function Services({ onFocus }: Props) {
+function Services() {
   const carouselRef = useRef<AliceCarousel>(null);
   const nullRef = useRef(null);
+  const { onFocus } = usePreview();
 
-  useEffect(() => {
-    const handleScroll = (event: WheelEvent) => {
-      const deltaY = event.deltaY;
-      if (deltaY > 0) {
-        carouselRef.current?.slideNext();
-      } else if (deltaY < 0) {
-        carouselRef.current?.slidePrev();
-      }
-    };
-
-    window.addEventListener("wheel", handleScroll);
-
-    return () => {
-      window.removeEventListener("wheel", handleScroll);
-    };
-  }, []);
   return (
     <div
       style={{ marginTop: "50px", opacity: onFocus === "services" ? 1 : 0.1 }}

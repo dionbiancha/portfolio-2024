@@ -5,6 +5,7 @@ import { SlSocialGithub } from "react-icons/sl";
 import { CiLinkedin } from "react-icons/ci";
 import { PiBehanceLogoLight } from "react-icons/pi";
 import { PiMediumLogo } from "react-icons/pi";
+import { usePreview } from "../../context/DataContext";
 
 const SOCIAL = [
   {
@@ -25,11 +26,8 @@ const SOCIAL = [
   },
 ];
 
-interface Props {
-  onFocus: string;
-}
-
-function About({ onFocus }: Props) {
+function About() {
+  const { onFocus } = usePreview();
   return (
     <div style={{ opacity: onFocus === "about" ? 1 : 0.1 }}>
       <Card title="`${sobre}`" id="about">
