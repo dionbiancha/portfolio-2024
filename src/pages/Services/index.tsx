@@ -14,15 +14,15 @@ const SERVICES = [
       <FaFigma style={{ width: "40px", height: "40px", color: "#899bff" }} />
     ),
     title: "UI Design",
-    text: "Desenho interface de forma que ela seja clara, objetiva e principalmente intuitiva para o usuário.",
-    filters: ["UI Design"],
+    text: "Criação de designs visuais atraentes e funcionais que proporcionam uma experiência de usuário excepcional em produtos ou serviços digitais, tornando a usabilidade intuitiva e mantendo a identidade de marca consistente.",
+    filters: [],
   },
   {
     icon: (
       <RiCodeView style={{ width: "40px", height: "40px", color: "#899bff" }} />
     ),
     title: "Web",
-    text: "Desenvolvo sites profissionais, portfólios e landing pages",
+    text: "Foco no desenvolvimento de alto desempenho e escalabilidade, entregando soluções web personalizadas para sua empresa.",
     filters: ["Web"],
   },
   {
@@ -32,8 +32,8 @@ const SERVICES = [
       />
     ),
     title: "Mobile",
-    text: "Desenho interface de forma que ela seja clara, objetiva e principalmente intuitiva para o usuário.",
-    filters: ["Mobile"],
+    text: "Soluções inovadoras e personalizadas em aplicativos móveis, desde a ideia até a publicação na loja de aplicativos, garantindo uma experiência de usuário intuitiva e atraente.",
+    filters: [],
   },
 ];
 

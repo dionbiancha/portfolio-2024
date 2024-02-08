@@ -21,13 +21,13 @@ const NAV = [
     title: "Serviços",
     id: "services",
     zoom: 1.5,
-    cod: 1,
+    cod: 2,
   },
   {
     title: "Experiências",
     id: "xp",
     zoom: 1.5,
-    cod: 2,
+    cod: 1,
   },
   {
     title: "Projetos",

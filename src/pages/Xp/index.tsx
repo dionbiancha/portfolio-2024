@@ -16,7 +16,7 @@ const XP_VALUES = [
     title: "Frontend Developer",
     company: "Freelancer",
     time: "mai de 2020 - fev de 2022 · 1 ano e 9 meses",
-    text: "Atuo no grupo especializado em soluções financeiras cross-border com mais de 7 mil clientes pessoas jurídicas e cerca de 6 milhões de clientes pessoas físicas colaborando com o rebranding da carteira digital multimoedas voltada a remessas e pagamentos internacionais com pix no exterior.",
+    text: "Com uma paixão pela inovação e um olhar afiado para detalhes, trago à vida as visões de meus clientes, moldando seus conceitos em sites dinâmicos e funcionais.",
   },
   {
     nav: "Reacta Labs",
