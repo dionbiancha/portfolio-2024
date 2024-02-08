@@ -8,6 +8,7 @@ import Services from "./pages/Services";
 import Xp from "./pages/Xp";
 import Projects from "./pages/Projects";
 import { useEffect, useRef, useState } from "react";
+import { usePreview } from "./context/DataContext";
 
 const NAV = [
   {
@@ -35,6 +36,7 @@ const NAV = [
 function App() {
   const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null);
   const [onFocus, setOnFocus] = useState("");
+  const { filter, setFilter } = usePreview();
 
   function zoomToImage(value: string, zoom: number) {
     if (transformComponentRef.current) {
@@ -44,16 +46,28 @@ function App() {
     }
   }
   useEffect(() => {
+    if (filter.length > 0) {
+      zoomToImage("projects", 1.5);
+    }
+  }, [filter]);
+
+  useEffect(() => {
     zoomToImage("about", 1.5);
     setOnFocus("about");
   }, []);
+
   return (
     <div className={`flex items-center justify-center min-h-screen`}>
       <ul className="cursor-pointer flex items-center justify-center space-x-8 absolute top-0 p-8 w-full  text-md text-gray-600 z-[500] bg-[#111111]">
         {NAV.map((value) => (
           <li
             className="duration-500 hover:text-[#fff]"
-            onClick={() => zoomToImage(value.id, value.zoom)}
+            onClick={() => {
+              zoomToImage(value.id, value.zoom);
+              if (value.id !== "projects") {
+                setFilter([]);
+              }
+            }}
           >
             {value.title}
           </li>

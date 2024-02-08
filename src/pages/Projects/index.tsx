@@ -6,6 +6,7 @@ import { MdOutlineTour } from "react-icons/md";
 import { LuTicket } from "react-icons/lu";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
+import { usePreview } from "../../context/DataContext";
 
 const PROJECTS = [
   {
@@ -93,10 +94,10 @@ function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
                 setFilter([...filter, value]);
               }
             }}
-            className={`border border-[#9ca3af] duration-500 text-[#9ca3af] ${
+            className={`border duration-500 ${
               filter.includes(value)
-                ? "bg-[#899bff] text-[#111111] border-[#899bff]"
-                : ""
+                ? "border-[#899bff] bg-[#899bff] text-[#111111]"
+                : "text-[#9ca3af] border-[#9ca3af]"
             }`}
             style={{
               display: "flex",
@@ -132,12 +133,12 @@ const responsive = {
 };
 
 function Projects({ onFocus }: Props) {
-  const [filter, setFilter] = useState<string[]>([]);
   const carouselRef = useRef<AliceCarousel>(null);
   const nullRef = useRef(null);
+  const { filter, setFilter } = usePreview();
 
   useEffect(() => {
-    const handleScroll = (event: any) => {
+    const handleScroll = (event: WheelEvent) => {
       const deltaY = event.deltaY;
       if (deltaY > 0) {
         carouselRef.current?.slideNext();

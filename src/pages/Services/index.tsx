@@ -6,7 +6,7 @@ import { RiCodeView } from "react-icons/ri";
 import { useEffect, useRef, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
 import { FaArrowRight } from "react-icons/fa6";
-import { ReactZoomPanPinchRef } from "react-zoom-pan-pinch";
+import { usePreview } from "../../context/DataContext";
 
 const SERVICES = [
   {
@@ -15,6 +15,7 @@ const SERVICES = [
     ),
     title: "UI Design",
     text: "Desenho interface de forma que ela seja clara, objetiva e principalmente intuitiva para o usuário.",
+    filters: ["UI Design"],
   },
   {
     icon: (
@@ -22,6 +23,7 @@ const SERVICES = [
     ),
     title: "Web",
     text: "Desenvolvo sites profissionais, portfólios e landing pages",
+    filters: ["Web"],
   },
   {
     icon: (
@@ -31,6 +33,7 @@ const SERVICES = [
     ),
     title: "Mobile",
     text: "Desenho interface de forma que ela seja clara, objetiva e principalmente intuitiva para o usuário.",
+    filters: ["Mobile"],
   },
 ];
 
@@ -38,11 +41,13 @@ interface AreaProps {
   icon: React.ReactNode;
   title: string;
   text: string;
+  filters: string[];
 }
 
-function Area({ icon, title, text }: AreaProps) {
+function Area({ icon, title, text, filters }: AreaProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null);
+  const { setFilter } = usePreview();
+
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
@@ -77,9 +82,7 @@ function Area({ icon, title, text }: AreaProps) {
       </div>
       <p style={{ color: "#9ca3af", fontSize: "10px" }}>{text}</p>
       <div
-        onClick={() => {
-          // const { zoomToElement } = transformComponentRef.current;
-        }}
+        onClick={() => setFilter(filters)}
         style={{
           display: "flex",
           flexDirection: "row",
@@ -118,7 +121,7 @@ function Services({ onFocus }: Props) {
   const nullRef = useRef(null);
 
   useEffect(() => {
-    const handleScroll = (event: any) => {
+    const handleScroll = (event: WheelEvent) => {
       const deltaY = event.deltaY;
       if (deltaY > 0) {
         carouselRef.current?.slideNext();
@@ -146,7 +149,12 @@ function Services({ onFocus }: Props) {
           disableDotsControls
           disableButtonsControls
           items={SERVICES.map((value) => (
-            <Area icon={value.icon} title={value.title} text={value.text} />
+            <Area
+              icon={value.icon}
+              title={value.title}
+              text={value.text}
+              filters={value.filters}
+            />
           ))}
         />
       </Card>
