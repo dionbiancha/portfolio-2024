@@ -46,7 +46,7 @@ interface AreaProps {
 
 function Area({ icon, title, text, filters }: AreaProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const { setFilter, onFocus } = usePreview();
+  const { setFilter, onFocus, isSmallScreen } = usePreview();
 
   return (
     <div
@@ -59,8 +59,8 @@ function Area({ icon, title, text, filters }: AreaProps) {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        width: "90%",
-        height: "200px",
+        width: isSmallScreen ? "70%" : "90%",
+        height: isSmallScreen ? "280px" : "200px",
         backgroundColor: "#111111",
         padding: "20px",
         cursor: onFocus === "services" ? "pointer" : "",

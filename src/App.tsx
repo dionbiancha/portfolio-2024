@@ -18,17 +18,18 @@ const NAV = [
     cod: 0,
   },
   {
-    title: "Serviços",
-    id: "services",
-    zoom: 1.5,
-    cod: 2,
-  },
-  {
     title: "Experiências",
     id: "xp",
     zoom: 1.5,
     cod: 1,
   },
+  {
+    title: "Serviços",
+    id: "services",
+    zoom: 1.5,
+    cod: 2,
+  },
+
   {
     title: "Projetos",
     id: "projects",
@@ -51,6 +52,7 @@ function App() {
       setOnFocus(value);
     }
   }
+
   useEffect(() => {
     if (filter.length > 0) {
       zoomToImage("projects", 1.5);
@@ -59,7 +61,6 @@ function App() {
   }, [filter]);
 
   useEffect(() => {
-    setIsSmallScreen(window.innerWidth <= 1000);
     if (screenMove > 3) {
       setScreenMove(0);
     }
@@ -82,6 +83,7 @@ function App() {
       zoomToImage("projects", 1.5);
       setOnFocus("projects");
     }
+    setIsSmallScreen(window.innerWidth <= 1000);
   }, [screenMove]);
 
   function handleScroll(event: WheelEvent) {
@@ -112,11 +114,7 @@ function App() {
     function handleResize() {
       setIsSmallScreen(window.innerWidth <= 1000);
     }
-
-    // Adiciona um ouvinte de evento de redimensionamento
     window.addEventListener("resize", handleResize);
-
-    // Remove o ouvinte de evento de redimensionamento quando o componente é desmontado
     return () => {
       window.removeEventListener("resize", handleResize);
     };

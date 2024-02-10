@@ -12,11 +12,8 @@ function Card({ children, id }: CardProps) {
     <div
       id={id}
       style={{
-        width: "100%",
+        width: isSmallScreen ? "100%" : "600px",
         maxWidth: isSmallScreen ? "280px" : "600px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
       }}
       className="relative bg-[#151515] border-2 rounded-sm border-[#1F1F1F] border-solid  p-8"
     >

@@ -48,7 +48,7 @@ interface AreaProps {
 
 function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const { onFocus } = usePreview();
+  const { onFocus, isSmallScreen } = usePreview();
 
   return (
     <div
@@ -59,9 +59,10 @@ function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        width: "90%",
+        alignItems: isSmallScreen ? "center" : "",
+        width: isSmallScreen ? "70%" : "90%",
         maxWidth: "400px",
-        height: "200px",
+        height: isSmallScreen ? "280px" : "200px",
         backgroundColor: "#111111",
         padding: "20px",
         cursor: onFocus === "projects" ? "pointer" : "",
@@ -70,7 +71,14 @@ function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
       onMouseEnter={() => onFocus === "projects" && setIsHovered(true)}
       onMouseLeave={() => onFocus === "projects" && setIsHovered(false)}
     >
-      <div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          textAlign: isSmallScreen ? "center" : "left",
+          alignItems: isSmallScreen ? "center" : "",
+        }}
+      >
         {icon}
         <h2
           style={{
@@ -85,7 +93,14 @@ function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
 
         <p style={{ color: "#9ca3af", fontSize: "10px" }}>{text}</p>
       </div>
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: isSmallScreen ? "center" : "",
+          flexWrap: "wrap",
+        }}
+      >
         {skills.map((value) => (
           <div
             onClick={() => {
@@ -107,6 +122,7 @@ function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
               borderRadius: "5px",
               fontSize: "10px",
               fontWeight: 600,
+              marginBottom: "5px",
             }}
             key={value} // Adicionei uma chave única para cada elemento, necessário quando renderizando uma lista no React
           >

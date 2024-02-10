@@ -32,21 +32,24 @@ function About() {
   return (
     <div
       style={{
+        maxWidth: "600px",
+        width: "100%",
         opacity: onFocus === "about" ? 1 : 0.1,
       }}
     >
       <Card title="`${sobre}`" id="about">
         <div
           className={`flex ${
-            isSmallScreen ? "flex-col" : "flex-row"
+            isSmallScreen ? "flex-col items-center text-center" : "flex-row"
           } justify-between`}
         >
           <img
             style={{
               height: isSmallScreen ? "150px" : "200px",
               width: isSmallScreen ? "150px" : "200px",
+
               borderRadius: "5px",
-              marginRight: "20px",
+              marginRight: isSmallScreen ? "" : "20px",
               filter: "grayscale(100%)",
             }}
             src="me.jpg"
@@ -86,6 +89,7 @@ function About() {
               style={{
                 display: "flex",
                 flexDirection: "row",
+                justifyContent: isSmallScreen ? "center" : "",
                 marginTop: "20px",
               }}
             >
