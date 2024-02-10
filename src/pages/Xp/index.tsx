@@ -43,7 +43,14 @@ function Xp() {
     return false;
   }
   return (
-    <div style={{ marginLeft: "50px", opacity: onFocus === "xp" ? 1 : 0.1 }}>
+    <div
+      style={{
+        maxWidth: "600px",
+        width: "100%",
+        marginLeft: "50px",
+        opacity: onFocus === "xp" ? 1 : 0.1,
+      }}
+    >
       <Card title="`${experiências}`" id="xp">
         <div className="flex flex-row justify-between">
           <div className="flex flex-col justify-between bg-[#111111] mr-5">

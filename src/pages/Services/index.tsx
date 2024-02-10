@@ -119,7 +119,12 @@ function Services() {
 
   return (
     <div
-      style={{ marginTop: "50px", opacity: onFocus === "services" ? 1 : 0.1 }}
+      style={{
+        maxWidth: "600px",
+        width: "100%",
+        marginTop: "50px",
+        opacity: onFocus === "services" ? 1 : 0.1,
+      }}
     >
       <Card title="`${serviços}`" id="services">
         <AliceCarousel

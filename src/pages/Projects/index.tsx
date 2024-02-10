@@ -137,7 +137,12 @@ function Projects() {
 
   return (
     <div
-      style={{ marginRight: "50px", opacity: onFocus === "projects" ? 1 : 0.1 }}
+      style={{
+        maxWidth: "600px",
+        width: "100%",
+        marginRight: "50px",
+        opacity: onFocus === "projects" ? 1 : 0.1,
+      }}
     >
       <Card title="`${projetos}`" id="projects">
         <AliceCarousel

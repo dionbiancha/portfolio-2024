@@ -39,10 +39,9 @@ const NAV = [
 
 function App() {
   const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null);
-  const { filter, setFilter, setOnFocus } = usePreview();
+  const { filter, setFilter, setOnFocus, setIsSmallScreen } = usePreview();
   const [screenMove, setScreenMove] = useState(0);
   const [podeScroll, setPodeScroll] = useState(true);
-  const widthValue = window.innerWidth > 425;
 
   function zoomToImage(value: string, zoom: number) {
     if (transformComponentRef.current) {
@@ -107,6 +106,20 @@ function App() {
     };
   }, [podeScroll]);
 
+  useEffect(() => {
+    function handleResize() {
+      setIsSmallScreen(window.innerWidth <= 1000);
+    }
+
+    // Adiciona um ouvinte de evento de redimensionamento
+    window.addEventListener("resize", handleResize);
+
+    // Remove o ouvinte de evento de redimensionamento quando o componente é desmontado
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div className={`flex items-center justify-center min-h-screen`}>
       <ul className="cursor-pointer flex items-center justify-center space-x-8 absolute top-0 p-8 w-full  text-md text-gray-600 z-[500] bg-[#111111]">
@@ -127,7 +140,7 @@ function App() {
       </ul>
       <div className="absolute z-10">
         <TransformWrapper
-          disabled={widthValue}
+          disabled
           initialScale={1}
           limitToBounds={false}
           ref={transformComponentRef}

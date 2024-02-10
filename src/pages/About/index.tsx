@@ -27,15 +27,20 @@ const SOCIAL = [
 ];
 
 function About() {
-  const { onFocus } = usePreview();
+  const { onFocus, isSmallScreen } = usePreview();
+
   return (
     <div style={{ opacity: onFocus === "about" ? 1 : 0.1 }}>
       <Card title="`${sobre}`" id="about">
-        <div className="flex flex-row justify-between">
+        <div
+          className={`flex ${
+            isSmallScreen ? "flex-col" : "flex-row"
+          } justify-between`}
+        >
           <img
             style={{
-              height: "200px",
-              width: "200px",
+              height: isSmallScreen ? "150px" : "200px",
+              width: isSmallScreen ? "150px" : "200px",
               borderRadius: "5px",
               marginRight: "20px",
               filter: "grayscale(100%)",

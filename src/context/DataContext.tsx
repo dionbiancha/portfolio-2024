@@ -5,6 +5,8 @@ interface DataContextProps {
   setFilter: React.Dispatch<React.SetStateAction<string[]>>;
   onFocus: string;
   setOnFocus: React.Dispatch<React.SetStateAction<string>>;
+  isSmallScreen: boolean;
+  setIsSmallScreen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const DataContext = createContext<DataContextProps | undefined>(undefined);
@@ -16,6 +18,8 @@ interface DataProviderProps {
 export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [filter, setFilter] = useState<string[]>([]);
   const [onFocus, setOnFocus] = useState<string>("");
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
   return (
     <DataContext.Provider
       value={{
@@ -23,6 +27,8 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         setOnFocus,
         filter,
         setFilter,
+        setIsSmallScreen,
+        isSmallScreen,
       }}
     >
       {children}

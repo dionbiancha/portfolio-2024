@@ -9,7 +9,8 @@ function Card({ children, id }: CardProps) {
     <div
       id={id}
       style={{
-        width: "600px",
+        width: "100%",
+        maxWidth: "600px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
