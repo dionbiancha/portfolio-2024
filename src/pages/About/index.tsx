@@ -30,7 +30,11 @@ function About() {
   const { onFocus, isSmallScreen } = usePreview();
 
   return (
-    <div style={{ opacity: onFocus === "about" ? 1 : 0.1 }}>
+    <div
+      style={{
+        opacity: onFocus === "about" ? 1 : 0.1,
+      }}
+    >
       <Card title="`${sobre}`" id="about">
         <div
           className={`flex ${

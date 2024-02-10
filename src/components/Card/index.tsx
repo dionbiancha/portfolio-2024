@@ -1,3 +1,5 @@
+import { usePreview } from "../../context/DataContext";
+
 interface CardProps {
   children: React.ReactNode;
   title?: string;
@@ -5,12 +7,13 @@ interface CardProps {
 }
 
 function Card({ children, id }: CardProps) {
+  const { isSmallScreen } = usePreview();
   return (
     <div
       id={id}
       style={{
         width: "100%",
-        maxWidth: "600px",
+        maxWidth: isSmallScreen ? "280px" : "600px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

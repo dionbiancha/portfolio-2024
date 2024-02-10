@@ -39,14 +39,15 @@ const NAV = [
 
 function App() {
   const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null);
-  const { filter, setFilter, setOnFocus, setIsSmallScreen } = usePreview();
+  const { filter, setFilter, setOnFocus, setIsSmallScreen, isSmallScreen } =
+    usePreview();
   const [screenMove, setScreenMove] = useState(0);
   const [podeScroll, setPodeScroll] = useState(true);
 
   function zoomToImage(value: string, zoom: number) {
     if (transformComponentRef.current) {
       const { zoomToElement } = transformComponentRef.current;
-      zoomToElement(value, zoom);
+      zoomToElement(value, isSmallScreen ? 1.3 : zoom);
       setOnFocus(value);
     }
   }
@@ -58,6 +59,7 @@ function App() {
   }, [filter]);
 
   useEffect(() => {
+    setIsSmallScreen(window.innerWidth <= 1000);
     if (screenMove > 3) {
       setScreenMove(0);
     }
