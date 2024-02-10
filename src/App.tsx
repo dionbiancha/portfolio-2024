@@ -41,6 +41,8 @@ function App() {
   const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null);
   const { filter, setFilter, setOnFocus } = usePreview();
   const [screenMove, setScreenMove] = useState(0);
+  const [podeScroll, setPodeScroll] = useState(true);
+  const widthValue = window.innerWidth > 425;
 
   function zoomToImage(value: string, zoom: number) {
     if (transformComponentRef.current) {
@@ -60,11 +62,9 @@ function App() {
     if (screenMove > 3) {
       setScreenMove(0);
     }
-
     if (screenMove < 0) {
       setScreenMove(3);
     }
-
     if (screenMove === 0) {
       zoomToImage("about", 1.5);
       setOnFocus("about");
@@ -84,11 +84,18 @@ function App() {
   }, [screenMove]);
 
   function handleScroll(event: WheelEvent) {
-    if (event.deltaY > 0) {
-      setScreenMove((prevCount) => prevCount + 1);
-    }
-    if (event.deltaY < 0) {
-      setScreenMove((prevCount) => prevCount - 1);
+    if (podeScroll) {
+      if (event.deltaY > 0) {
+        setScreenMove((prevCount) => prevCount + 1);
+      }
+      if (event.deltaY < 0) {
+        setScreenMove((prevCount) => prevCount - 1);
+      }
+      setPodeScroll(false);
+
+      setTimeout(() => {
+        setPodeScroll(true);
+      }, 800);
     }
   }
 
@@ -98,7 +105,7 @@ function App() {
     return () => {
       window.removeEventListener("wheel", handleScroll);
     };
-  }, []);
+  }, [podeScroll]);
 
   return (
     <div className={`flex items-center justify-center min-h-screen`}>
@@ -120,7 +127,7 @@ function App() {
       </ul>
       <div className="absolute z-10">
         <TransformWrapper
-          disabled
+          disabled={widthValue}
           initialScale={1}
           limitToBounds={false}
           ref={transformComponentRef}
