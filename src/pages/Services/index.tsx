@@ -76,7 +76,17 @@ function Area({ icon, title, text, filters }: AreaProps) {
         margin: "8px",
       }}
     >
-      <div>
+      <div
+        style={
+          isSmallScreen
+            ? {
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }
+            : {}
+        }
+      >
         {icon}
         <h2
           style={{

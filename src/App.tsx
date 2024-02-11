@@ -121,6 +121,52 @@ function App() {
   }, [podeScroll, disabledPageScrool]);
 
   useEffect(() => {
+    const handleScroll = (event: WheelEvent | TouchEvent) => {
+      // Verifica se o gesto é um toque (touch)
+      if ("touches" in event) {
+        const touch = event.touches[0];
+        // Calcula a diferença de posição do toque inicial para o toque atual
+        const deltaX = touch.clientX - startX;
+        const deltaY = touch.clientY - startY;
+
+        // Se a diferença horizontal for maior que a vertical, trata-se de um deslize horizontal
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+          // Impedir o comportamento padrão do deslize do navegador
+          event.preventDefault();
+          // Realize a lógica de deslizamento horizontal aqui
+          if (deltaX > 0) {
+            // Deslizar para a direita
+          } else {
+            // Deslizar para a esquerda
+          }
+        }
+      } else {
+        // Lógica de deslize vertical para dispositivos que suportam roda (wheel)
+        // handleScroll lógica original aqui
+      }
+    };
+
+    let startX: number, startY: number;
+
+    const handleTouchStart = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      // Registra a posição inicial do toque
+      startX = touch.clientX;
+      startY = touch.clientY;
+    };
+
+    // Adiciona o event listener para o deslize de toque (touch)
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchmove", handleScroll);
+
+    // Remove os event listeners quando o componente é desmontado
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleScroll);
+    };
+  }, [podeScroll, disabledPageScrool]);
+
+  useEffect(() => {
     function handleResize() {
       setIsSmallScreen(window.innerWidth <= 1000);
     }
