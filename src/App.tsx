@@ -127,14 +127,14 @@ function App() {
         const deltaX = touch.clientX - startX;
         const deltaY = touch.clientY - startY;
 
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        if (Math.abs(deltaX) < Math.abs(deltaY)) {
           event.preventDefault();
           if (!disabledPageScrool) {
             if (podeScroll) {
-              if (deltaX < 0) {
+              if (deltaY > 0) {
                 setScreenMove((prevCount) => prevCount + 1);
               }
-              if (deltaX > 0) {
+              if (deltaY < 0) {
                 setScreenMove((prevCount) => prevCount - 1);
               }
               setPodeScroll(false);
