@@ -3,9 +3,8 @@ import "../../App.css";
 import { FaFigma } from "react-icons/fa";
 import { TbDeviceMobileMessage } from "react-icons/tb";
 import { RiCodeView } from "react-icons/ri";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
-import { FaArrowRight } from "react-icons/fa6";
 import { usePreview } from "../../context/DataContext";
 
 const SERVICES = [
@@ -46,18 +45,28 @@ interface AreaProps {
 
 function Area({ icon, title, text, filters }: AreaProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const { setFilter, onFocus, isSmallScreen } = usePreview();
+  const { setFilter, onFocus, isSmallScreen, setDisabledPageScrool } =
+    usePreview();
 
   return (
     <div
-      onMouseEnter={() => onFocus === "services" && setIsHovered(true)}
-      onMouseLeave={() => onFocus === "services" && setIsHovered(false)}
-      className={`border rounded-md  ${
+      title={`Clique para ver projetos ${title}`}
+      onClick={() => setFilter(filters)}
+      onMouseEnter={() => {
+        setDisabledPageScrool(true);
+        onFocus === "services" && setIsHovered(true);
+      }}
+      onMouseLeave={() => {
+        setDisabledPageScrool(false);
+        onFocus === "services" && setIsHovered(false);
+      }}
+      className={`border rounded-md  duration-300 ${
         isHovered ? "shadow-neon-blue" : "border-[#111111]"
       }`}
       style={{
         display: "flex",
         flexDirection: "column",
+        alignItems: isSmallScreen ? "center" : "",
         justifyContent: "space-between",
         width: isSmallScreen ? "70%" : "90%",
         height: isSmallScreen ? "280px" : "200px",
@@ -80,22 +89,15 @@ function Area({ icon, title, text, filters }: AreaProps) {
           {title}
         </h2>
       </div>
-      <p style={{ color: "#9ca3af", fontSize: "10px" }}>{text}</p>
-      <div
-        onClick={() => setFilter(filters)}
+      <p
         style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          color: "#899bff",
-          alignItems: "center",
-          fontWeight: 600,
+          color: "#9ca3af",
           fontSize: "10px",
+          textAlign: isSmallScreen ? "center" : "left",
         }}
       >
-        <p>Projetos</p>
-        <FaArrowRight />
-      </div>
+        {text}
+      </p>
     </div>
   );
 }
@@ -114,8 +116,28 @@ const responsive = {
 
 function Services() {
   const carouselRef = useRef<AliceCarousel>(null);
-  const nullRef = useRef(null);
-  const { onFocus } = usePreview();
+  const nullRef = useRef<AliceCarousel>(null);
+  const { onFocus, disabledPageScrool } = usePreview();
+
+  useEffect(() => {
+    if (disabledPageScrool) {
+      const handleScroll = (e: WheelEvent) => {
+        if (e.deltaY > 0) {
+          // Scroll down, move to the next slide
+          carouselRef.current?.slideNext();
+        } else {
+          // Scroll up, move to the previous slide
+          carouselRef.current?.slidePrev();
+        }
+      };
+
+      document.addEventListener("wheel", handleScroll);
+
+      return () => {
+        document.removeEventListener("wheel", handleScroll);
+      };
+    }
+  }, [disabledPageScrool]);
 
   return (
     <div
@@ -130,12 +152,14 @@ function Services() {
         <AliceCarousel
           ref={onFocus === "services" ? carouselRef : nullRef}
           responsive={responsive}
+          keyboardNavigation
           infinite
           mouseTracking
           disableDotsControls
           disableButtonsControls
           items={SERVICES.map((value) => (
             <Area
+              key={value.title}
               icon={value.icon}
               title={value.title}
               text={value.text}

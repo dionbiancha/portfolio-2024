@@ -7,6 +7,8 @@ interface DataContextProps {
   setOnFocus: React.Dispatch<React.SetStateAction<string>>;
   isSmallScreen: boolean;
   setIsSmallScreen: React.Dispatch<React.SetStateAction<boolean>>;
+  disabledPageScrool: boolean;
+  setDisabledPageScrool: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const DataContext = createContext<DataContextProps | undefined>(undefined);
@@ -19,10 +21,13 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [filter, setFilter] = useState<string[]>([]);
   const [onFocus, setOnFocus] = useState<string>("");
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [disabledPageScrool, setDisabledPageScrool] = useState(false);
 
   return (
     <DataContext.Provider
       value={{
+        disabledPageScrool,
+        setDisabledPageScrool,
         onFocus,
         setOnFocus,
         filter,

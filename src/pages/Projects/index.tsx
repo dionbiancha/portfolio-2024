@@ -1,7 +1,7 @@
 import Card from "../../components/Card";
 import "../../App.css";
 import { MdDevices } from "react-icons/md";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdOutlineTour } from "react-icons/md";
 import { LuTicket } from "react-icons/lu";
 import AliceCarousel from "react-alice-carousel";
@@ -48,13 +48,22 @@ interface AreaProps {
 
 function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const { onFocus, isSmallScreen } = usePreview();
+  const { onFocus, isSmallScreen, setDisabledPageScrool } = usePreview();
 
   return (
     <div
       className={`border rounded-md duration-300 ${
         isHovered ? "shadow-neon-blue" : "border-[#111111]"
       }`}
+      title="Clique para ver o projeto"
+      onMouseEnter={() => {
+        setDisabledPageScrool(true);
+        onFocus === "projects" && setIsHovered(true);
+      }}
+      onMouseLeave={() => {
+        setDisabledPageScrool(false);
+        onFocus === "projects" && setIsHovered(false);
+      }}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -68,8 +77,6 @@ function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
         cursor: onFocus === "projects" ? "pointer" : "",
         margin: "8px",
       }}
-      onMouseEnter={() => onFocus === "projects" && setIsHovered(true)}
-      onMouseLeave={() => onFocus === "projects" && setIsHovered(false)}
     >
       <div
         style={{
@@ -103,6 +110,11 @@ function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
       >
         {skills.map((value) => (
           <div
+            title={
+              filter.includes(value)
+                ? "Clique para remover o filtro"
+                : "Clique para aplicar o filtro"
+            }
             onClick={() => {
               if (filter.includes(value)) {
                 setFilter(filter.filter((item) => item !== value));
@@ -110,10 +122,10 @@ function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
                 setFilter([...filter, value]);
               }
             }}
-            className={`border duration-500 ${
+            className={`border duration-500  ${
               filter.includes(value)
                 ? "border-[#899bff] bg-[#899bff] text-[#111111]"
-                : "text-[#9ca3af] border-[#9ca3af]"
+                : "hover:text-[#899bff] hover:border-[#899bff] text-[#9ca3af] border-[#9ca3af]"
             }`}
             style={{
               display: "flex",
@@ -123,6 +135,7 @@ function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
               fontSize: "10px",
               fontWeight: 600,
               marginBottom: "5px",
+              cursor: "pointer",
             }}
             key={value} // Adicionei uma chave única para cada elemento, necessário quando renderizando uma lista no React
           >
@@ -149,7 +162,25 @@ const responsive = {
 function Projects() {
   const carouselRef = useRef<AliceCarousel>(null);
   const nullRef = useRef(null);
-  const { filter, setFilter, onFocus } = usePreview();
+  const { filter, setFilter, onFocus, disabledPageScrool } = usePreview();
+
+  useEffect(() => {
+    if (disabledPageScrool) {
+      const handleScroll = (e: WheelEvent) => {
+        if (e.deltaY > 0) {
+          carouselRef.current?.slideNext();
+        } else {
+          carouselRef.current?.slidePrev();
+        }
+      };
+
+      document.addEventListener("wheel", handleScroll);
+
+      return () => {
+        document.removeEventListener("wheel", handleScroll);
+      };
+    }
+  }, [disabledPageScrool]);
 
   return (
     <div
@@ -162,6 +193,7 @@ function Projects() {
     >
       <Card title="`${projetos}`" id="projects">
         <AliceCarousel
+          keyboardNavigation
           ref={onFocus === "projects" ? carouselRef : nullRef}
           responsive={responsive}
           infinite

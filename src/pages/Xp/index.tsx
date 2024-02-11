@@ -36,7 +36,7 @@ interface XProps {
 
 function Xp() {
   const [selectdXP, setSelectdXP] = useState<XProps>(XP_VALUES[0]);
-  const { onFocus } = usePreview();
+  const { onFocus, isSmallScreen } = usePreview();
 
   function isSelected(value: XProps) {
     if (selectdXP === value) return true;
@@ -53,7 +53,10 @@ function Xp() {
     >
       <Card title="`${experiências}`" id="xp">
         <div className="flex flex-row justify-between">
-          <div className="flex flex-col justify-between bg-[#111111] mr-5">
+          <div
+            style={{ display: isSmallScreen ? "none" : "block" }}
+            className="flex flex-col justify-between bg-[#111111] mr-5"
+          >
             {XP_VALUES.map((value) => (
               <div
                 onClick={() => onFocus === "xp" && setSelectdXP(value)}
@@ -71,13 +74,51 @@ function Xp() {
               </div>
             ))}
           </div>
-          <div>
-            <div className="flex flex-row justify-between items-center ">
+          <div
+            style={{
+              width: "600px",
+              height: isSmallScreen ? "250px" : "",
+              textAlign: isSmallScreen ? "center" : "left",
+            }}
+          >
+            <div
+              style={{
+                display: isSmallScreen ? "flex" : "none",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginBottom: "20px",
+              }}
+            >
+              {XP_VALUES.map((value) => (
+                <div
+                  onClick={() => onFocus === "xp" && setSelectdXP(value)}
+                  style={{
+                    borderBottom: isSelected(value) ? "1px solid #899bff" : "",
+                    cursor: onFocus === "xp" ? "pointer" : "",
+                    fontSize: "10px",
+
+                    whiteSpace: "nowrap",
+
+                    color: isSelected(value) ? "#899bff" : "",
+                  }}
+                >
+                  {value.nav}
+                </div>
+              ))}
+            </div>
+            <div
+              className={
+                isSmallScreen
+                  ? ""
+                  : `flex flex-row justify-between items-center`
+              }
+            >
               <h1 style={{ fontSize: "20px", fontWeight: 600 }}>
                 {selectdXP.title}
               </h1>
               <span
                 style={{
+                  display: isSmallScreen ? "none" : "block",
                   color: "#9ca3af",
                   fontSize: "10px",
                   marginTop: "5px",
@@ -91,11 +132,21 @@ function Xp() {
                 fontSize: "15px",
                 fontWeight: 600,
                 color: "#899bff",
-                marginBottom: "20px",
+                marginBottom: "10px",
               }}
             >
               {selectdXP.company}
             </h2>
+            <span
+              style={{
+                display: isSmallScreen ? "block" : "none",
+                color: "#9ca3af",
+                fontSize: "10px",
+                marginBottom: "20px",
+              }}
+            >
+              {selectdXP.time}
+            </span>
             <p style={{ color: "#9ca3af", fontSize: "10px" }}>
               {selectdXP.text}
             </p>

@@ -40,8 +40,15 @@ const NAV = [
 
 function App() {
   const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null);
-  const { filter, setFilter, setOnFocus, setIsSmallScreen, isSmallScreen } =
-    usePreview();
+  const {
+    filter,
+    setFilter,
+    setOnFocus,
+    setIsSmallScreen,
+    isSmallScreen,
+
+    disabledPageScrool,
+  } = usePreview();
   const [screenMove, setScreenMove] = useState(0);
   const [podeScroll, setPodeScroll] = useState(true);
 
@@ -67,10 +74,12 @@ function App() {
     if (screenMove < 0) {
       setScreenMove(3);
     }
+
     if (screenMove === 0) {
       zoomToImage("about", 1.5);
       setOnFocus("about");
     }
+
     if (screenMove === 1) {
       zoomToImage("xp", 1.5);
       setOnFocus("xp");
@@ -87,18 +96,19 @@ function App() {
   }, [screenMove]);
 
   function handleScroll(event: WheelEvent) {
-    if (podeScroll) {
-      if (event.deltaY > 0) {
-        setScreenMove((prevCount) => prevCount + 1);
+    if (!disabledPageScrool) {
+      if (podeScroll) {
+        if (event.deltaY > 0) {
+          setScreenMove((prevCount) => prevCount + 1);
+        }
+        if (event.deltaY < 0) {
+          setScreenMove((prevCount) => prevCount - 1);
+        }
+        setPodeScroll(false);
+        setTimeout(() => {
+          setPodeScroll(true);
+        }, 800);
       }
-      if (event.deltaY < 0) {
-        setScreenMove((prevCount) => prevCount - 1);
-      }
-      setPodeScroll(false);
-
-      setTimeout(() => {
-        setPodeScroll(true);
-      }, 800);
     }
   }
 
@@ -108,7 +118,7 @@ function App() {
     return () => {
       window.removeEventListener("wheel", handleScroll);
     };
-  }, [podeScroll]);
+  }, [podeScroll, disabledPageScrool]);
 
   useEffect(() => {
     function handleResize() {
