@@ -122,27 +122,27 @@ function App() {
 
   useEffect(() => {
     const handleScroll = (event: WheelEvent | TouchEvent) => {
-      // Verifica se o gesto é um toque (touch)
       if ("touches" in event) {
         const touch = event.touches[0];
-        // Calcula a diferença de posição do toque inicial para o toque atual
         const deltaX = touch.clientX - startX;
         const deltaY = touch.clientY - startY;
 
-        // Se a diferença horizontal for maior que a vertical, trata-se de um deslize horizontal
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
-          // Impedir o comportamento padrão do deslize do navegador
           event.preventDefault();
-          // Realize a lógica de deslizamento horizontal aqui
-          if (deltaX > 0) {
-            // Deslizar para a direita
-          } else {
-            // Deslizar para a esquerda
+          if (!disabledPageScrool) {
+            if (podeScroll) {
+              if (deltaX < 0) {
+                setScreenMove((prevCount) => prevCount + 1);
+              } else {
+                setScreenMove((prevCount) => prevCount - 1);
+              }
+              setPodeScroll(false);
+              setTimeout(() => {
+                setPodeScroll(true);
+              }, 800);
+            }
           }
         }
-      } else {
-        // Lógica de deslize vertical para dispositivos que suportam roda (wheel)
-        // handleScroll lógica original aqui
       }
     };
 
