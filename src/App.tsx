@@ -133,7 +133,8 @@ function App() {
             if (podeScroll) {
               if (deltaX < 0) {
                 setScreenMove((prevCount) => prevCount + 1);
-              } else {
+              }
+              if (deltaX > 0) {
                 setScreenMove((prevCount) => prevCount - 1);
               }
               setPodeScroll(false);
