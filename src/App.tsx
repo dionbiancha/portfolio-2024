@@ -131,13 +131,11 @@ function App() {
           event.preventDefault();
           if (!disabledPageScrool) {
             if (podeScroll) {
-              if (deltaY < -10) {
+              if (deltaY < -13) {
                 console.log(deltaY);
                 setScreenMove((prevCount) => prevCount + 1);
               }
-              if (deltaY > 10) {
-                setScreenMove((prevCount) => prevCount - 1);
-              }
+
               setPodeScroll(false);
               setTimeout(() => {
                 setPodeScroll(true);
