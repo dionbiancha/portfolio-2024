@@ -131,10 +131,10 @@ function App() {
           event.preventDefault();
           if (!disabledPageScrool) {
             if (podeScroll) {
-              if (deltaY > 0) {
+              if (deltaY < 0) {
                 setScreenMove((prevCount) => prevCount + 1);
               }
-              if (deltaY < 0) {
+              if (deltaY > 0) {
                 setScreenMove((prevCount) => prevCount - 1);
               }
               setPodeScroll(false);
