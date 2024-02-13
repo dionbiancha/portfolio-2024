@@ -25,6 +25,24 @@ const PROJECTS = [
     skills: ["React", "Typescript", "i18n", "Web"],
     link: "https://portfolio-2023-dionbiancha.vercel.app/",
   },
+  {
+    title: "SOS",
+    text: "Figma Website of solutions in the area of ​​construction/renovations",
+    skills: ["UI Design"],
+    link: "https://www.behance.net/gallery/170249819/SOS-Digital",
+  },
+  {
+    title: "La Receita",
+    text: "Aplicativo de receitas da Lar Cooperativa Agroindustrial desenvolvido em parceria com a Uniamérica.",
+    skills: ["React Native", "Mobile"],
+    link: "https://github.com/dionbiancha/appLar",
+  },
+  {
+    title: "Starbucks",
+    text: "Todos os dias esperamos fazer duas coisas: dividir um ótimo café com nossos amigos e ajudar a tornar o mundo um pouquinho melhor. ",
+    skills: ["Web", "HTML5", "CSS3", "Javascript"],
+    link: "https://dionbiancha.github.io/starbucks-landing-page/",
+  },
 ];
 
 interface AreaProps {

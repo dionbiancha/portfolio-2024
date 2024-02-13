@@ -14,7 +14,7 @@ const SERVICES = [
     ),
     title: "UI Design",
     text: "Criação de designs visuais atraentes e funcionais que proporcionam uma experiência de usuário excepcional em produtos ou serviços digitais, tornando a usabilidade intuitiva e mantendo a identidade de marca consistente.",
-    filters: [],
+    filters: ["UI Design"],
   },
   {
     icon: (
@@ -32,7 +32,7 @@ const SERVICES = [
     ),
     title: "Mobile",
     text: "Soluções inovadoras e personalizadas em aplicativos móveis, desde a ideia até a publicação na loja de aplicativos, garantindo uma experiência de usuário intuitiva e atraente.",
-    filters: [],
+    filters: ["Mobile"],
   },
 ];
 
