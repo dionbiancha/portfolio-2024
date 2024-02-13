@@ -126,13 +126,12 @@ function App() {
         const touch = event.touches[0];
         const deltaX = touch.clientX - startX;
         const deltaY = touch.clientY - startY;
+        console.log(deltaY);
 
         if (Math.abs(deltaX) < Math.abs(deltaY)) {
-          event.preventDefault();
           if (!disabledPageScrool) {
             if (podeScroll) {
-              if (deltaY < -13) {
-                console.log(deltaY);
+              if (deltaY < -5) {
                 setScreenMove((prevCount) => prevCount + 1);
               }
 
