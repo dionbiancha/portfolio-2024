@@ -14,15 +14,15 @@ const SOCIAL = [
   },
   {
     icon: <CiLinkedin />,
-    link: "https://github.com/dionbiancha",
+    link: "https://www.linkedin.com/in/dionbiancha/",
   },
   {
     icon: <PiMediumLogo />,
-    link: "https://github.com/dionbiancha",
+    link: "https://medium.com/@dion.biancha",
   },
   {
     icon: <PiBehanceLogoLight />,
-    link: "https://github.com/dionbiancha",
+    link: "https://www.behance.net/dioneibianchati",
   },
 ];
 

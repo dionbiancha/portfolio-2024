@@ -14,6 +14,7 @@ function SocialButton({ icon, link }: SocialButtonProps) {
 
   return (
     <div
+      title="Clique para abrir o link em uma nova aba"
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

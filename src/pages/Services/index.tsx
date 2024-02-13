@@ -21,7 +21,7 @@ const SERVICES = [
       <RiCodeView style={{ width: "40px", height: "40px", color: "#899bff" }} />
     ),
     title: "Web",
-    text: "Foco no desenvolvimento de alto desempenho e escalabilidade, entregando soluções web personalizadas para sua empresa.",
+    text: "Criamos soluções web sob medida para atender às suas necessidades específicas, desde o design intuitivo e responsivo até funcionalidades avançadas que otimizam seus processos e impulsionam seus resultados.",
     filters: ["Web"],
   },
   {

@@ -7,6 +7,7 @@ import { LuTicket } from "react-icons/lu";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import { usePreview } from "../../context/DataContext";
+import { FiExternalLink } from "react-icons/fi";
 
 const PROJECTS = [
   {
@@ -16,8 +17,9 @@ const PROJECTS = [
       />
     ),
     title: "Adaptour",
-    text: "Projeto ajuda a solucionar a dor de um grupo de turistas aonde se precisam de acessbilidade.",
+    text: "Projeto com o 2º Lugar na premiação geral no Hackatour Cataratas 2023, sendo este uma solução focada em acessibilidade a turistas portadores de PCD.",
     skills: ["Next", "Typescript", "Chakra UI", "Web"],
+    link: "https://adaptour.teampolaris.tech/",
   },
   {
     icon: (
@@ -26,18 +28,21 @@ const PROJECTS = [
     title: "I Love Voucher",
     text: "Facilitando a vida de operadores de turismos padronizando a emissão de vouchers.",
     skills: ["React", "Typescript", "Chakra UI", "i18n", "Web"],
+    link: "https://ilovevoucher.teampolaris.tech/",
   },
   {
     icon: (
       <MdDevices style={{ width: "40px", height: "40px", color: "#899bff" }} />
     ),
     title: "Portfolio 2023",
-    text: "Website turilizado como portfólio no ano de 2023",
+    text: "Website utilizado como portfólio no ano de 2023.",
     skills: ["React", "Typescript", "i18n", "Web"],
+    link: "https://portfolio-2023-dionbiancha.vercel.app/",
   },
 ];
 
 interface AreaProps {
+  link: string;
   icon: React.ReactNode;
   title: string;
   text: string;
@@ -46,7 +51,7 @@ interface AreaProps {
   setFilter: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
+function Area({ title, text, skills, filter, setFilter, link }: AreaProps) {
   const [isHovered, setIsHovered] = useState(false);
   const { onFocus, isSmallScreen, setDisabledPageScrool } = usePreview();
 
@@ -55,7 +60,6 @@ function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
       className={`border rounded-md duration-300 ${
         isHovered ? "shadow-neon-blue" : "border-[#111111]"
       }`}
-      title="Clique para ver o projeto"
       onMouseEnter={() => {
         setDisabledPageScrool(true);
         onFocus === "projects" && setIsHovered(true);
@@ -74,29 +78,40 @@ function Area({ icon, title, text, skills, filter, setFilter }: AreaProps) {
         height: isSmallScreen ? "280px" : "200px",
         backgroundColor: "#111111",
         padding: "20px",
-        cursor: onFocus === "projects" ? "pointer" : "",
+
         margin: "8px",
       }}
     >
       <div
+        title="Clique para ver o projeto"
+        onClick={() => window.open(link, "_blank")}
         style={{
+          cursor: onFocus === "projects" ? "pointer" : "",
           display: "flex",
           flexDirection: "column",
           textAlign: isSmallScreen ? "center" : "left",
           alignItems: isSmallScreen ? "center" : "",
         }}
       >
-        {icon}
-        <h2
+        <div
           style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            marginTop: "10px",
             marginBottom: "5px",
-            marginTop: "15px",
-            fontWeight: 600,
-            fontSize: "15px",
           }}
         >
-          {title}
-        </h2>
+          <h2
+            style={{
+              fontWeight: 600,
+              fontSize: "15px",
+            }}
+          >
+            {title}
+          </h2>
+          <FiExternalLink style={{ marginLeft: "5px", width: "12px" }} />
+        </div>
 
         <p style={{ color: "#9ca3af", fontSize: "10px" }}>{text}</p>
       </div>
@@ -208,6 +223,7 @@ function Projects() {
             return filter.every((skill) => project.skills.includes(skill));
           }).map((project) => (
             <Area
+              link={project.link}
               key={project.title}
               filter={filter}
               setFilter={setFilter}

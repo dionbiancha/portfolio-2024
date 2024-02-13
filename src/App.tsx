@@ -45,7 +45,6 @@ function App() {
     setFilter,
     setOnFocus,
     setIsSmallScreen,
-    isSmallScreen,
 
     disabledPageScrool,
   } = usePreview();
@@ -55,7 +54,8 @@ function App() {
   function zoomToImage(value: string, zoom: number) {
     if (transformComponentRef.current) {
       const { zoomToElement } = transformComponentRef.current;
-      zoomToElement(value, isSmallScreen ? 1.3 : zoom);
+
+      zoomToElement(value, window.innerWidth <= 1000 ? 1.3 : zoom);
       setOnFocus(value);
     }
   }
@@ -149,16 +149,13 @@ function App() {
 
     const handleTouchStart = (event: TouchEvent) => {
       const touch = event.touches[0];
-      // Registra a posição inicial do toque
       startX = touch.clientX;
       startY = touch.clientY;
     };
 
-    // Adiciona o event listener para o deslize de toque (touch)
     window.addEventListener("touchstart", handleTouchStart);
     window.addEventListener("touchmove", handleScroll);
 
-    // Remove os event listeners quando o componente é desmontado
     return () => {
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchmove", handleScroll);
@@ -196,7 +193,6 @@ function App() {
       <div className="absolute z-10">
         <TransformWrapper
           disabled
-          initialScale={1}
           limitToBounds={false}
           ref={transformComponentRef}
         >
