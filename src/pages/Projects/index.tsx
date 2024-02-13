@@ -1,39 +1,25 @@
 import Card from "../../components/Card";
 import "../../App.css";
-import { MdDevices } from "react-icons/md";
 import { useEffect, useRef, useState } from "react";
-import { MdOutlineTour } from "react-icons/md";
-import { LuTicket } from "react-icons/lu";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
-import { usePreview } from "../../context/DataContext";
+import { usePreview } from "../../context/usePreview";
 import { FiExternalLink } from "react-icons/fi";
 
 const PROJECTS = [
   {
-    icon: (
-      <MdOutlineTour
-        style={{ width: "40px", height: "40px", color: "#899bff" }}
-      />
-    ),
     title: "Adaptour",
     text: "Projeto com o 2º Lugar na premiação geral no Hackatour Cataratas 2023, sendo este uma solução focada em acessibilidade a turistas portadores de PCD.",
     skills: ["Next", "Typescript", "Chakra UI", "Web"],
     link: "https://adaptour.teampolaris.tech/",
   },
   {
-    icon: (
-      <LuTicket style={{ width: "40px", height: "40px", color: "#899bff" }} />
-    ),
     title: "I Love Voucher",
     text: "Facilitando a vida de operadores de turismos padronizando a emissão de vouchers.",
     skills: ["React", "Typescript", "Chakra UI", "i18n", "Web"],
     link: "https://ilovevoucher.teampolaris.tech/",
   },
   {
-    icon: (
-      <MdDevices style={{ width: "40px", height: "40px", color: "#899bff" }} />
-    ),
     title: "Portfolio 2023",
     text: "Website utilizado como portfólio no ano de 2023.",
     skills: ["React", "Typescript", "i18n", "Web"],
@@ -43,7 +29,6 @@ const PROJECTS = [
 
 interface AreaProps {
   link: string;
-  icon: React.ReactNode;
   title: string;
   text: string;
   skills: string[];
@@ -227,7 +212,6 @@ function Projects() {
               key={project.title}
               filter={filter}
               setFilter={setFilter}
-              icon={project.icon}
               title={project.title}
               text={project.text}
               skills={project.skills}

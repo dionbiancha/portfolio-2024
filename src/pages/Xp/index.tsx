@@ -1,7 +1,7 @@
 import Card from "../../components/Card";
 import "../../App.css";
 import { useState } from "react";
-import { usePreview } from "../../context/DataContext";
+import { usePreview } from "../../context/usePreview";
 
 const XP_VALUES = [
   {

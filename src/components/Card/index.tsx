@@ -1,4 +1,4 @@
-import { usePreview } from "../../context/DataContext";
+import { usePreview } from "../../context/usePreview";
 
 interface CardProps {
   children: React.ReactNode;

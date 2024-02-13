@@ -5,7 +5,7 @@ import { TbDeviceMobileMessage } from "react-icons/tb";
 import { RiCodeView } from "react-icons/ri";
 import { useEffect, useRef, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
-import { usePreview } from "../../context/DataContext";
+import { usePreview } from "../../context/usePreview";
 
 const SERVICES = [
   {

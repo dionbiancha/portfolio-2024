@@ -8,7 +8,7 @@ import Services from "./pages/Services";
 import Xp from "./pages/Xp";
 import Projects from "./pages/Projects";
 import { useEffect, useRef, useState } from "react";
-import { usePreview } from "./context/DataContext";
+import { usePreview } from "./context/usePreview";
 
 const NAV = [
   {

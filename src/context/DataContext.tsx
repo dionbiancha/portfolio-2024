@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useState, ReactNode } from "react";
 
 interface DataContextProps {
   filter: string[];
@@ -11,7 +11,9 @@ interface DataContextProps {
   setDisabledPageScrool: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const DataContext = createContext<DataContextProps | undefined>(undefined);
+export const DataContext = createContext<DataContextProps | undefined>(
+  undefined
+);
 
 interface DataProviderProps {
   children: ReactNode;
@@ -39,14 +41,4 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
       {children}
     </DataContext.Provider>
   );
-};
-
-export const usePreview = () => {
-  const context = useContext(DataContext);
-
-  if (!context) {
-    throw new Error("usePreview must be used within a PreviewProvider");
-  }
-
-  return context;
 };
