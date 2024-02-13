@@ -121,48 +121,6 @@ function App() {
   }, [podeScroll, disabledPageScrool]);
 
   useEffect(() => {
-    const handleScroll = (event: WheelEvent | TouchEvent) => {
-      if ("touches" in event) {
-        const touch = event.touches[0];
-        const deltaX = touch.clientX - startX;
-        const deltaY = touch.clientY - startY;
-        console.log(deltaY);
-
-        if (Math.abs(deltaX) < Math.abs(deltaY)) {
-          if (!disabledPageScrool) {
-            if (podeScroll) {
-              if (deltaY < -5) {
-                setScreenMove((prevCount) => prevCount + 1);
-              }
-
-              setPodeScroll(false);
-              setTimeout(() => {
-                setPodeScroll(true);
-              }, 800);
-            }
-          }
-        }
-      }
-    };
-
-    let startX: number, startY: number;
-
-    const handleTouchStart = (event: TouchEvent) => {
-      const touch = event.touches[0];
-      startX = touch.clientX;
-      startY = touch.clientY;
-    };
-
-    window.addEventListener("touchstart", handleTouchStart);
-    window.addEventListener("touchmove", handleScroll);
-
-    return () => {
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleScroll);
-    };
-  }, [podeScroll, disabledPageScrool]);
-
-  useEffect(() => {
     function handleResize() {
       setIsSmallScreen(window.innerWidth <= 1000);
     }
@@ -174,9 +132,10 @@ function App() {
 
   return (
     <div className={`flex items-center justify-center min-h-screen`}>
-      <ul className="cursor-pointer flex items-center justify-center space-x-8 absolute top-0 p-8 w-full  text-md text-gray-600 z-[500] bg-[#111111]">
-        {NAV.map((value) => (
+      <ul className="cursor-pointer flex items-center justify-center space-x-8 absolute top-0 p-8 w-full  text-md text-[#9ca3af] z-[500] bg-[#111111]">
+        {NAV.map((value, key) => (
           <li
+            key={key}
             className="duration-500 hover:text-[#fff]"
             onClick={() => {
               setScreenMove(value.cod);

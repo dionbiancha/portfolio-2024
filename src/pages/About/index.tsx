@@ -44,6 +44,7 @@ function About() {
           } justify-between`}
         >
           <img
+            alt="foto de perfil"
             style={{
               height: isSmallScreen ? "150px" : "200px",
               width: isSmallScreen ? "150px" : "200px",
@@ -52,7 +53,7 @@ function About() {
               marginRight: isSmallScreen ? "" : "20px",
               filter: "grayscale(100%)",
             }}
-            src="me.jpg"
+            src="me.png"
           />
           <div>
             <h2
@@ -93,8 +94,8 @@ function About() {
                 marginTop: "20px",
               }}
             >
-              {SOCIAL.map((value) => (
-                <SocialButton icon={value.icon} link={value.link} />
+              {SOCIAL.map((value, key) => (
+                <SocialButton key={key} icon={value.icon} link={value.link} />
               ))}
             </div>
           </div>

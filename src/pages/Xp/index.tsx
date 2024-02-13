@@ -57,8 +57,9 @@ function Xp() {
             style={{ display: isSmallScreen ? "none" : "block" }}
             className="flex flex-col justify-between bg-[#111111] mr-5"
           >
-            {XP_VALUES.map((value) => (
+            {XP_VALUES.map((value, key) => (
               <div
+                key={key}
                 onClick={() => onFocus === "xp" && setSelectdXP(value)}
                 style={{
                   borderLeft: isSelected(value) ? "2px solid #899bff" : "",
@@ -89,8 +90,9 @@ function Xp() {
                 marginBottom: "20px",
               }}
             >
-              {XP_VALUES.map((value) => (
+              {XP_VALUES.map((value, key) => (
                 <div
+                  key={key}
                   onClick={() => onFocus === "xp" && setSelectdXP(value)}
                   style={{
                     borderBottom: isSelected(value) ? "1px solid #899bff" : "",
